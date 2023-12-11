@@ -2,6 +2,7 @@ package com.example.quizapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.SyncStateContract
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -9,9 +10,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import android.content.Intent
-//
+
+
 
 class QuizQuestions : AppCompatActivity() {
     var progressBar:ProgressBar?=null
@@ -35,15 +35,15 @@ class QuizQuestions : AppCompatActivity() {
         questiontwo=findViewById(R.id.tvoptiontwo)
         questionthree=findViewById(R.id.tvoptionthree)
         questionfour=findViewById(R.id.tvoptionfour)
-       val questionsList = Constants.getQuestion()
+       val queList = Constants.getQuestions()
 
-//
-      // for (i in questionsList) {
-      //   Log.e("question is", i.question)
-//       }
-//        var currentposition=0
-//        val Question:Question=questionsList[currentposition]
-//        progressBar?.progress=currentposition
-//        tvprogress?.text="$currentposition/${progressBar?.max}"
-//        tvquestions?.text=Question.question
+
+       for (i in queList) {
+         Log.e("question is", i.question)
+       }
+        var currentposition=1
+        val Question:Question=queList[currentposition - 1]
+        progressBar?.progress=currentposition
+        tvprogress?.text=" $currentposition/${progressBar?.max} "
+        tvquestions?.text=Question.question
     }}
