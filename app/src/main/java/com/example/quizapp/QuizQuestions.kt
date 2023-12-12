@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +15,15 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.quizapp.Result
 
 
 class QuizQuestions : AppCompatActivity(), View.OnClickListener {
     var currentposition:Int=1
     var questionList:ArrayList<Question>?=null
     var selectedOption:Int=0
+    var username:String?=null
+    var correctanswers:Int=0
 
     var progressBar:ProgressBar?=null
     var tvprogress:TextView?=null
@@ -36,6 +40,8 @@ class QuizQuestions : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
+
+        username=intent.getStringExtra(Constants.USER_NAME)
         progressBar=findViewById(R.id.pb)
         tvprogress=findViewById(R.id.tvbar)
         tvquestions=findViewById(R.id.tvquestions)
@@ -141,11 +147,22 @@ class QuizQuestions : AppCompatActivity(), View.OnClickListener {
                     when{currentposition<=questionList!!.size->{
                         setQuestion()
                     }
+                        else->{
+                            val intent= Intent(this,Result::class.java)
+                            intent.putExtra(Constants.USER_NAME,username)
+                            intent.putExtra(Constants.CORRECT_ANSWERS,correctanswers)
+                            intent.putExtra(Constants.TOTAL_QUESTION,questionList?.size)
+                            startActivity(intent)
+                            finish()
+                        }
                 }}
                 else{
                     val que=questionList?.get(currentposition-1)
                     if(que!!.correctAns!=selectedOption){
                         answerview(selectedOption, R.drawable.wrong_option_border_bg)
+                    }
+                    else{
+                        correctanswers++
                     }
                        answerview(que.correctAns,R.drawable.correct_option_border_bg)
                     if(currentposition == questionList!!.size){
