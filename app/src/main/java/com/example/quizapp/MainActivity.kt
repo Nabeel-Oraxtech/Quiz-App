@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             }
             else{
                 val intent=Intent(this,QuizQuestions::class.java)
-                intent.putExtra(Constants.USER_NAME,et.toString())
+                intent.putExtra(Constants.USER_NAME,et.text.toString())
                 startActivity(intent)
             }
         }
