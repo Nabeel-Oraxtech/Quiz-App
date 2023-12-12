@@ -60,7 +60,7 @@ class QuizQuestions : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setQuestion() {
-
+        defaultoptionview()
         val question: Question = questionList!![currentposition - 1]
         image?.setImageResource(question.image)
         progressBar?.progress = currentposition
@@ -72,12 +72,7 @@ class QuizQuestions : AppCompatActivity(), View.OnClickListener {
         questionthree?.text = question.optionThree
         questionfour?.text = question.optionFour
 
-        if(currentposition == questionList!!.size){
-            btnsubmit?.text="FINISH"
-        }
-        else{
-            btnsubmit?.text="SUBMIT"
-        }
+
     }
 
     fun defaultoptionview(){
@@ -104,7 +99,7 @@ class QuizQuestions : AppCompatActivity(), View.OnClickListener {
         }
     }
     fun selectedoptionview(tv:TextView,selectedoptionnum:Int){
-        defaultoptionview()
+
         selectedOption=selectedoptionnum
         tv.setTextColor(Color.parseColor("#1a2b3c"))
         tv.setTypeface(tv.typeface,Typeface.BOLD)
@@ -153,6 +148,13 @@ class QuizQuestions : AppCompatActivity(), View.OnClickListener {
                         answerview(selectedOption, R.drawable.wrong_option_border_bg)
                     }
                        answerview(que.correctAns,R.drawable.correct_option_border_bg)
+                    if(currentposition == questionList!!.size){
+                        btnsubmit?.text="FINISH"
+                    }
+                    else{
+                        btnsubmit?.text="Next"
+                    }
+                    selectedOption=0
 
                 }
             }
